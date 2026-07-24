@@ -1,0 +1,288 @@
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(180deg, #FF8FAB 0%, #FAA5BB 25%, #FFB3C6 50%, #FFC2D1 75%, #FFE5EC 100%);
+    position: relative;
+}
+
+#envelope-container {
+    display: flex; /* Bố trí các phần tử con nằm ngang hàng */
+    justify-content: center; /* Canh giữa cả hai phần tử */
+    align-items: center; /* Canh giữa theo chiều dọc */
+    gap: 40px; /* Khoảng cách giữa thư và ảnh */
+    position: absolute;
+    top: 45%; /* Đưa lên cao hơn một chút so với 50% */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw; /* Chiếm phần lớn chiều rộng màn hình */
+    max-width: 900px;
+    z-index: 10;
+    pointer-events: auto; /* Cho phép click vào */
+}
+
+
+#envelope {
+    width:58vw;
+    height: 35vw;
+    max-width: 900px;
+    max-height:600px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    cursor: pointer;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+}
+
+@keyframes float {
+    0%,100% {
+        transform: translate(-50%, -50%) translateY(0);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) translateY(-10px);
+    }
+}
+
+/* --- 1. Đưa bao thư về chính giữa màn hình như ban đầu --- */
+#envelope {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; /* Hoặc kích thước ban đầu của bạn */
+    height: 450px; /* Hoặc kích thước ban đầu của bạn */
+    z-index: 10;
+    cursor: pointer;
+}
+
+.bunny-decor {
+    position: fixed;
+    left: 5vw;       /* Cách mép trái một chút */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;     /* Kích thước đàn thỏ */
+    height: auto;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.bunny-decor img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.couple-photo {
+    position: fixed;
+    right: 70px;     /* Nằm sát mép phải */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px;     /* Kích thước ảnh cặp đôi */
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    z-index: 15;
+}
+
+.couple-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- TỜ GIẤY TRẮNG BÊN TRONG --- */
+.letter {
+    position: absolute;
+    bottom: 10%; 
+    
+    /* 3 Dòng này giúp tờ giấy luôn nằm ở chính giữa phong bì */
+    left: 0;
+    right: 0;
+    margin: 0 auto; 
+    
+    width: 90%; /* Độ rộng của tờ giấy */
+    height: 90%; 
+    background: #FFF9F9;
+    color: #7A3555;
+    border-radius: 6px;
+    padding: 18px 16px;
+    box-sizing: border-box;
+    z-index: 2; /* Nằm dưới nắp phong bì */
+    
+    font-family: 'Playfair Display', serif;
+    font-size: italic;
+    line-height: 1.85; 
+    text-align: center;
+    overflow: hidden; 
+
+    opacity: 0;
+    transform: translateY(-1%);
+    transition: transform 1.7s ease 18000s; 
+    z-index: 10;
+}
+
+/* Tiêu đề chính to và nổi bật */
+.letter-main-title {
+   font-family: 'Playfair Display', serif;
+    font-style: italic;  /* Chữ nghiêng nghệ thuật */
+    font-size: 1.2vw;    /* Font serif khá to nên giảm nhẹ để vừa thư */
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* Định dạng phần From và To */
+.letter-from {
+    font-size: 1.55vw;
+    margin-bottom: 6px;
+}
+
+.letter-to {
+    font-size: 1.55vw;
+    margin-top: 10px;
+}
+
+/* Phần nội dung chính mềm mại */
+.letter-body {
+    font-size: 1.55vw;
+}
+
+/* Khi mở thư */
+.open .letter {
+    transform: translateY(-62%); 
+}
+/* Khi mở thư, trượt lên cao hơn một chút cho đẹp */
+.open .letter {
+    transform: translateY(-50%, -62%); 
+}
+/* --- VỎ PHONG BÌ & CÁC NẮP --- */
+.envelope-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #f095aa;
+    border-radius: 8px;
+    z-index: 1;
+}
+
+.flap-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0;
+    pointer-events: none;
+}
+
+.flap {
+    width: 100%;
+    height: 100%;
+}
+
+.flap-left { z-index: 3; }
+.flap-left .flap {
+    background: #ea859d;
+    clip-path: polygon(0 0, 50% 50%, 0 100%);
+}
+
+.flap-right { z-index: 3; }
+.flap-right .flap {
+    background: #ea859d;
+    clip-path: polygon(100% 0, 50% 50%, 100% 100%);
+}
+
+.flap-bottom { z-index: 4; }
+.flap-bottom .flap {
+    background: #e27590;
+    clip-path: polygon(0 100%, 50% 42%, 100% 100%);
+}
+
+/* Nắp Trên (Lúc đầu đậy kín phong bì) */
+.flap-top-wrapper {
+    z-index: 6;
+}
+
+.flap-top {
+    background: #f095aa;
+    clip-path: polygon(0 0, 100% 0, 50% 55%);
+    transform-origin: top;
+    transition: transform 0.8s ease;
+}
+
+/* --- TRẠNG THÁI KHI MỞ PHONG BÌ --- */
+.open .flap-top {
+    transform: rotateX(180deg); /* Lật nắp trên ra sau */
+}
+
+.open .flap-top-wrapper {
+    z-index: 0; 
+}
+
+
+.open .letter {
+    transform: translateY(-50);
+    opacity: 1;
+    z-index: 10;
+}
+
+/* --- DÒNG CHỮ NẰM NGOÀI BAO THƯ --- */
+.outside-title {
+    position: absolute;
+    bottom: 3%; /* Cách đáy màn hình một khoảng vừa phải */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 20; /* Nổi lên trên nền */
+    pointer-events: none; /* Không cản trở click chuột mở thư */
+}
+
+.outside-title img {
+    width: 25vw; /* Kích thước chữ, bạn có thể tăng giảm tùy ý */
+    max-width: 300px;
+    height: auto;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+}
+
+/* --- ĐỔI FONT CHỮ DÒNG HAPPY ANNIVERSARY 2 YEARS --- */
+#text h2, .letter h2, #text p:first-of-type + p {
+    font-family: 'DM Serif Display', serif !important;
+    font-size: 28px !important; /* Tăng kích thước chút cho giống mẫu */
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.main-title {
+    font-family: 'Dancing Script', cursive; /* Hoặc đổi thành tên font retro/Tangkiwood bạn muốn */
+    font-size: 32px !important;
+    font-weight: bold;
+    color: #d63384;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.main-content {
+    white-space: pre-line; /* Giúp giữ nguyên các dấu xuống dòng */
+}
+
+/* --- Hiệu ứng khi mở thư --- */
+#main-wrapper.open-effect .bunny-decor {
+    transform: translateX(-30px); /* Đàn thỏ dạt sang trái */
+    opacity: 1;
+    transition: all 0.5s ease;
+}
+
+#main-wrapper.open-effect .couple-photo {
+    transform: translateX(30px); /* Ảnh dạt sang phải */
+    opacity: 1;
+    transition: all 0.5s ease;
+}
+
+#main-wrapper.open-effect #envelope {
+    transform: scale(1.05); /* Bao thư phóng to nhẹ */
+    transition: transform 0.5s ease;
+}
